@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Events</title>
+    <link href="styles/styles.css" type="text/css" rel="stylesheet">
+    <script src="scripts/jquery-3.5.1.js"></script>
+    <script>
+        // JQUERY CLICK METHOD
+        $(function() {
+            $('.button1').click(function() {
+                window.alert("Button has been clicked!");
+            })
+        });
+        
+        // JQUERY BIND METHOD
+        $(function() {
+            $('.button2').bind('click',function() {
+                window.alert("Button has been clicked!");
+            });
+        });
+        
+        // JQUERY ON METHOD
+        $(function() {
+            $('.button3').on('click',function() {
+                window.alert("Button has been clicked!");
+            });
+        });
+        
+        // // JQUERY ON METHOD FOR TWO BUTTONS
+        $(function() {
+            $('body').on({
+                click: function() {
+                window.alert("Button has been clicked!");
+                }
+            }, '.button4');
+        });
+
+        // // MOUSEENTER / MOUSELEAVE
+        $(function() {
+            $('body').on({
+                mouseenter: function() {
+                    window.alert("The Mouse entered");
+                },
+                mouseleave: function() {
+                    window.alert("The Mouse left");
+                },
+                click: function() {
+                    window.alert("The Div was clicked");
+                }
+            }, '.divQ5');
+        });
+
+        // ADDING SPAN TAG
+        $(function() {
+            $('body').on({
+                mouseenter: function() {
+                    $("#displayMessage").html("Mouse entered the div");
+                },
+                mouseleave: function() {
+                    $("#displayMessage").html("Mouse left the div");
+
+                },
+                click: function() {
+                    $("#displayMessage").html("Div was Clicked");
+
+                }
+            }, '.divQ6');
+        });
+
+        // PREVENTING LINK
+        $(function() {
+            $('a').click(function(event) {
+                event.preventDefault();
+            });
+            $('a').css('color', 'red');
+            $('a').click(function(event) {
+                window.alert(event.target.nodeName + ' tag triggered the event.');
+            });
+        });
+
+        // // RESIZE
+        $(function() {
+            $(window).resize(function() {
+                $('div.resize').text($(window).width() + " x " + $(window).height());
+            });
+        });
+
+        
+        // INPUT TEXT FIELD FOCUS IN & OUT
+        $(function() {
+            $('.focus').focusin(function(){
+                $(this).css('background-color', 'lightgray');
+            });
+            $('.focus').focusout(function(){
+                $(this).css('background-color', 'white');
+            });
+        });
+
+        // FORM VALIDATION
+        $(function(){
+            $("#email_form").submit(
+		        function(event) {
+                    // Email Validation
+			    var emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/;
+			    var email = $("#email").val().trim();
+			    if (email == "") { 
+                    window.alert("Email is required.");
+                    $('#email').css('border-color', 'red');
+			    } else if ( !emailPattern.test(email) ) {
+                    window.alert("Must be a valid email address.");
+                    $('#email').css('border-color', 'red');
+			    } else {
+				    $('#email').css('border-color', 'green');
+			    }
+                $("#email").val(email);
+                    // Name Validation
+                var name = $("#name").val().trim();
+                if (name == "") {
+                    window.alert("Name is required.");
+                    $('#name').css('border-color', 'red');
+                } else {
+                    $('#name').css('border-color', 'green');
+                }
+                $("#name").val(name);
+            event.preventDefault(); 
+    });
+});
+    </script>
+</head>
+<body>
+
+    <button class="button1">1. Click Me</button><br><br>
+    <button class="button2">2. Click Me</button><br><br>
+    <button class="button3">3. Click Me</button><br><br>
+    <button class="button4">4. Click Me</button>
+    <button class="button4">4. Click Me Too</button>
+    <br><br>
+    <div class="divQ5" style="width: 400px; height: 400px; font-size: 30px; background-color: lightcyan;"></div>
+    <br><br>
+    <div class="divQ6" style="width: 400px; height: 400px; font-size: 30px; background-color: lightslategray;"></div>
+    <br><br>
+    <span id="displayMessage"></span>
+    <br><br>
+    <a href="https://www.hugedomains.com/domain_profile.cfm?d=modulemedia&e=com" rel="stylesheet">Module Media</a>
+    <br><br>
+    <span>Page Dimensions - </span><div class="resize"></div>
+    <br><br>
+    <label>Focus In/Out</label>
+    <input type="text" class="focus">
+    <br><br>    
+    <form id="email_form" name="email_form">
+        <label>Enter your Name:</label>
+	    <input type="text" id="name" name="name">
+	    <br><br>
+        
+        <label>Enter your Email Address:</label>
+        <input type="text" id="email" name="email">
+        <br><br>
+
+        <input type="submit" id="submit" name="submit" value="Submit">
+    </form><br>
+
+    
+</body>
+</html>
